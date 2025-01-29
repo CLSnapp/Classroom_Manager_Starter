@@ -24,8 +24,8 @@ router.post("/register", async (req, res, next) => {
 // Login to an existing instructor account
 router.post("/login", async (req, res, next) => {
   try {
-    const instructor = await prisma.instructor.create({
-      data: {
+    const instructor = await prisma.instructor.findFirst({
+      where: {
         username: req.body.username,
         password: req.body.password,
       },
@@ -47,9 +47,9 @@ router.post("/login", async (req, res, next) => {
 // Get the currently logged in instructor
 router.get("/me", async (req, res, next) => {
   try {
-    const instructor = await prisma.instructor.findFirstOrThrow({
+    const instructor = await prisma.instructor.findFirst({
       where: {
-        id: parseInt(req.user?.id),
+        id: req.user.id,
       },
     });
 

@@ -68,9 +68,6 @@ router.put("/:id", async (req, res, next) => {
         cohort: parseInt(req.body.cohort),
       },
     });
-    if (!student) {
-      return res.status(404).send("Student not found.");
-    }
     res.send(student);
   } catch (error) {
     next(error);
